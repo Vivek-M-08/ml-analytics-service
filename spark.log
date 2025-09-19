@@ -1,0 +1,41 @@
+RUNNING JOB
+
+Fri Sep 19 20:36:36 IST 2025
+=====================================
+Gather Program IDs == Started
+Gather == Completed
+*************************************
+
+Fri Sep 19 20:36:36 IST 2025
+=====================================
+Daily Projects Batch Job Ingestion == Started
+Daily Projects Batch Job Ingestion == Completed
+*************************************
+
+Fri Sep 19 20:36:36 IST 2025
+=====================================
+Daily Projects Batch Job Ingestion == Started
+Daily Projects Batch Job Ingestion == Completed
+*************************************
+
+Fri Sep 19 20:36:36 IST 2025
+=====================================
+Re-check ingested the Program IDs == Started
+🚀 Running re-check ingestion (auto-detect mode from spec)
+Found 2 program IDs in /Users/user/Documents/shikshalokam/prod/ml-analytics-service/programs.txt
+
+=== Datasource: sl-project ===
+Total program IDs in datasource: 2
+✅ All program IDs from /Users/user/Documents/shikshalokam/prod/ml-analytics-service/programs.txt are present in sl-project
+
+=== Datasource: ml-project-programLevel-status ===
+Total program IDs in datasource: 1
+❌ Missing in ml-project-programLevel-status: ['601bc3eafdf0bd513d6d7bb0']
+✅ Ingestion started for 601bc3eafdf0bd513d6d7bb0 in ml-project-programLevel-status
+
+=== Datasource: ml-project-status ===
+Total program IDs in datasource: 2
+✅ All program IDs from /Users/user/Documents/shikshalokam/prod/ml-analytics-service/programs.txt are present in ml-project-status
+Re-check == Completed
+*************************************
+COMPLETED

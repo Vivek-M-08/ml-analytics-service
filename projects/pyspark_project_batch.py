@@ -35,9 +35,9 @@ config.read(config_path[0] + "/config.ini")
 bot = SlackClient(config.get("SLACK","token"))
 sys.path.append(config.get("COMMON", "cloud_module_path"))
 
-from cloud import MultiCloud
+# from cloud_storage.cloud import MultiCloud
 
-cloud_init = MultiCloud()
+# cloud_init = MultiCloud()
 formatter = logging.Formatter('%(asctime)s - %(levelname)s')
 
 details = argparse.ArgumentParser(description='Pass the ProgramID')
@@ -751,35 +751,35 @@ blob_distinctCnt_path = config.get("COMMON", "projects_distinctCnt_blob_path")
 local_distinctCnt_prgmlevel_path = config.get("OUTPUT_DIR", "projects_distinctCount_prgmlevel")
 blob_distinctCnt_prgmlevel_path = config.get("COMMON", "projects_distinctCnt_prgmlevel_blob_path")
 
-for files in os.listdir(local_path):
-    if "sl_projects.json" in files or f"sl_projects_{program_unique_id}.json" in files:
-        cloud_init.upload_to_cloud(blob_Path = blob_path, local_Path = local_path, file_Name = files)
+# for files in os.listdir(local_path):
+#     if "sl_projects.json" in files or f"sl_projects_{program_unique_id}.json" in files:
+#         cloud_init.upload_to_cloud(blob_Path = blob_path, local_Path = local_path, file_Name = files)
 
-#projects submission distinct count
-for files in os.listdir(local_distinctCnt_path):
-    if "ml_projects_distinctCount.json" in files or f"ml_projects_distinctCount_{program_unique_id}.json" in files:
-        cloud_init.upload_to_cloud(blob_Path = blob_distinctCnt_path, local_Path = local_distinctCnt_path, file_Name = files)
+# #projects submission distinct count
+# for files in os.listdir(local_distinctCnt_path):
+#     if "ml_projects_distinctCount.json" in files or f"ml_projects_distinctCount_{program_unique_id}.json" in files:
+#         cloud_init.upload_to_cloud(blob_Path = blob_distinctCnt_path, local_Path = local_distinctCnt_path, file_Name = files)
 
-#projects submission distinct count program level
-for files in os.listdir(local_distinctCnt_prgmlevel_path):
-    if "ml_projects_distinctCount_prgmlevel.json" in files or f"ml_projects_distinctCount_prgmlevel_{program_unique_id}.json" in files:
-        cloud_init.upload_to_cloud(blob_Path = blob_distinctCnt_prgmlevel_path, local_Path = local_distinctCnt_prgmlevel_path, file_Name = files)
+# #projects submission distinct count program level
+# for files in os.listdir(local_distinctCnt_prgmlevel_path):
+#     if "ml_projects_distinctCount_prgmlevel.json" in files or f"ml_projects_distinctCount_prgmlevel_{program_unique_id}.json" in files:
+#         cloud_init.upload_to_cloud(blob_Path = blob_distinctCnt_prgmlevel_path, local_Path = local_distinctCnt_prgmlevel_path, file_Name = files)
 
 successLogger.debug("Uploading to azure end time  " + str(datetime.datetime.now()))
 successLogger.debug("Removing file start time  " + str(datetime.datetime.now()))
 
-if program_unique_id :
- os.remove(config.get("OUTPUT_DIR", "project") + f"/sl_projects_{program_unique_id}.json")
- #projects submission distinct count
- os.remove(config.get("OUTPUT_DIR", "projects_distinctCount") + f"/ml_projects_distinctCount_{program_unique_id}.json")
- #projects submission distinct count program level
- os.remove(config.get("OUTPUT_DIR", "projects_distinctCount_prgmlevel") + f"/ml_projects_distinctCount_prgmlevel_{program_unique_id}.json")
-else :
- os.remove(config.get("OUTPUT_DIR", "project") + "/sl_projects.json")
- #projects submission distinct count
- os.remove(config.get("OUTPUT_DIR", "projects_distinctCount") + "/ml_projects_distinctCount.json")
- #projects submission distinct count program level
- os.remove(config.get("OUTPUT_DIR", "projects_distinctCount_prgmlevel") + "/ml_projects_distinctCount_prgmlevel.json")
+# if program_unique_id :
+#  os.remove(config.get("OUTPUT_DIR", "project") + f"/sl_projects_{program_unique_id}.json")
+#  #projects submission distinct count
+#  os.remove(config.get("OUTPUT_DIR", "projects_distinctCount") + f"/ml_projects_distinctCount_{program_unique_id}.json")
+#  #projects submission distinct count program level
+#  os.remove(config.get("OUTPUT_DIR", "projects_distinctCount_prgmlevel") + f"/ml_projects_distinctCount_prgmlevel_{program_unique_id}.json")
+# else :
+#  os.remove(config.get("OUTPUT_DIR", "project") + "/sl_projects.json")
+#  #projects submission distinct count
+#  os.remove(config.get("OUTPUT_DIR", "projects_distinctCount") + "/ml_projects_distinctCount.json")
+#  #projects submission distinct count program level
+#  os.remove(config.get("OUTPUT_DIR", "projects_distinctCount_prgmlevel") + "/ml_projects_distinctCount_prgmlevel.json")
 
 successLogger.debug("Removing file end time  " + str(datetime.datetime.now()))
 
@@ -791,38 +791,70 @@ successLogger.debug("Ingestion start time  " + str(datetime.datetime.now()))
 #projects submission distinct count
 ml_distinctCnt_projects_spec = json.loads(config.get("DRUID","ml_distinctCnt_projects_status_spec"))
 ml_distinctCnt_projects_datasource = ml_distinctCnt_projects_spec["spec"]["dataSchema"]["dataSource"]
-if program_unique_id :
-    current_cloud = re.split("://+", ml_distinctCnt_projects_spec["spec"]["ioConfig"]["inputSource"]["uris"][0])[0]
-    uri = re.split("://+", ml_distinctCnt_projects_spec["spec"]["ioConfig"]["inputSource"]["uris"][0])[1]
-    edited_uri = re.split(".json", uri)[0]
-    ml_distinctCnt_projects_spec["spec"]["ioConfig"]["inputSource"]["uris"][0]  = f"{current_cloud}://{edited_uri}_{program_unique_id}.json"
-    ml_distinctCnt_projects_spec['spec']['ioConfig'].update({"appendToExisting":True})
-distinctCnt_projects_start_supervisor = requests.post(druid_batch_end_point, data=json.dumps(ml_distinctCnt_projects_spec), headers=headers)
-if distinctCnt_projects_start_supervisor.status_code == 200:
-    bot.api_call("chat.postMessage",channel=config.get("SLACK","channel"),text=f"Successfully Ingested for {ml_distinctCnt_projects_datasource}")
-    successLogger.debug("started the batch ingestion task sucessfully for the datasource " + ml_distinctCnt_projects_datasource)
-else:
-    errorLogger.error("failed to start batch ingestion task of ml-project-status " + str(distinctCnt_projects_start_supervisor.status_code))
-    errorLogger.error(distinctCnt_projects_start_supervisor.text)
+if program_unique_id:
+    # Replace inputSource with local directory instead of S3
+    ml_distinctCnt_projects_spec["spec"]["ioConfig"]["inputSource"] = {
+        "type": "local",
+        "baseDir": "/Users/user/Documents/shikshalokam/prod/ml-analytics-service/local_cloud/projects_distinctCount/",
+        "filter": f"ml_projects_distinctCount_{program_unique_id}.json"
+    }
+    ml_distinctCnt_projects_spec['spec']['ioConfig'].update({"appendToExisting": True})
+successLogger.info("pushing the ml_distinctCnt_projects_status_spec data to druid : " + str(ml_distinctCnt_projects_spec))
+distinctCnt_projects_start_supervisor = requests.post(druid_batch_end_point,data=json.dumps(ml_distinctCnt_projects_spec),headers=headers)
+successLogger.info("pushed the ml_distinctCnt_projects_status_spec data to druid")
+
+
+# ml_distinctCnt_projects_spec = json.loads(config.get("DRUID","ml_distinctCnt_projects_status_spec"))
+# ml_distinctCnt_projects_datasource = ml_distinctCnt_projects_spec["spec"]["dataSchema"]["dataSource"]
+# if program_unique_id :
+#     current_cloud = re.split("://+", ml_distinctCnt_projects_spec["spec"]["ioConfig"]["inputSource"]["uris"][0])[0]
+#     uri = re.split("://+", ml_distinctCnt_projects_spec["spec"]["ioConfig"]["inputSource"]["uris"][0])[1]
+#     edited_uri = re.split(".json", uri)[0]
+#     ml_distinctCnt_projects_spec["spec"]["ioConfig"]["inputSource"]["uris"][0]  = f"{current_cloud}://{edited_uri}_{program_unique_id}.json"
+#     ml_distinctCnt_projects_spec['spec']['ioConfig'].update({"appendToExisting":True})
+# distinctCnt_projects_start_supervisor = requests.post(druid_batch_end_point, data=json.dumps(ml_distinctCnt_projects_spec), headers=headers)
+# if distinctCnt_projects_start_supervisor.status_code == 200:
+#     bot.api_call("chat.postMessage",channel=config.get("SLACK","channel"),text=f"Successfully Ingested for {ml_distinctCnt_projects_datasource}")
+#     successLogger.debug("started the batch ingestion task sucessfully for the datasource " + ml_distinctCnt_projects_datasource)
+# else:
+#     errorLogger.error("failed to start batch ingestion task of ml-project-status " + str(distinctCnt_projects_start_supervisor.status_code))
+#     errorLogger.error(distinctCnt_projects_start_supervisor.text)
+
+
 
 #projects submission distinct count program level
 ml_distinctCnt_prgmlevel_projects_spec = json.loads(config.get("DRUID","ml_distinctCnt_prglevel_projects_status_spec"))
 ml_distinctCnt_prgmlevel_projects_datasource = ml_distinctCnt_prgmlevel_projects_spec["spec"]["dataSchema"]["dataSource"]
 if program_unique_id:
-    current_cloud = re.split("://+", ml_distinctCnt_prgmlevel_projects_spec["spec"]["ioConfig"]["inputSource"]["uris"][0])[0]
-    uri = re.split("://+", ml_distinctCnt_prgmlevel_projects_spec["spec"]["ioConfig"]["inputSource"]["uris"][0])[1]
-    edited_uri = re.split(".json", uri)[0]
-    ml_distinctCnt_prgmlevel_projects_spec["spec"]["ioConfig"]["inputSource"]["uris"][0] = f"{current_cloud}://{edited_uri}_{program_unique_id}.json"
-    ml_distinctCnt_prgmlevel_projects_spec["spec"]["ioConfig"].update({"appendToExisting":True})
-distinctCnt_prgmlevel_projects_start_supervisor = requests.post(druid_batch_end_point, data=json.dumps(ml_distinctCnt_prgmlevel_projects_spec), headers=headers)
-if distinctCnt_prgmlevel_projects_start_supervisor.status_code == 200:
-    bot.api_call("chat.postMessage",channel=config.get("SLACK","channel"),text=f"Successfully Ingested for {ml_distinctCnt_prgmlevel_projects_datasource}")
-    successLogger.debug("started the batch ingestion task sucessfully for the datasource " + ml_distinctCnt_prgmlevel_projects_datasource)
-else:
-    errorLogger.error(
-            "failed to start batch ingestion task of ml-project-programLevel-status " + str(distinctCnt_prgmlevel_projects_start_supervisor.status_code)
-    )
-    errorLogger.error(distinctCnt_prgmlevel_projects_start_supervisor.text)
+    # Replace inputSource with local directory instead of S3
+    ml_distinctCnt_prgmlevel_projects_spec["spec"]["ioConfig"]["inputSource"] = {
+        "type": "local",
+        "baseDir": "/Users/user/Documents/shikshalokam/prod/ml-analytics-service/local_cloud/projects_distinctCount_prgmlevel/",
+        "filter": f"ml_projects_distinctCount_prgmlevel_{program_unique_id}.json"
+    }
+    ml_distinctCnt_prgmlevel_projects_spec['spec']['ioConfig'].update({"appendToExisting": True})
+successLogger.info("pushing the ml_distinctCnt_prglevel_projects_status_spec data to druid : " + str(ml_distinctCnt_prgmlevel_projects_spec))
+distinctCnt_prgmlevel_projects_start_supervisor = requests.post(druid_batch_end_point,data=json.dumps(ml_distinctCnt_prgmlevel_projects_spec),headers=headers)
+successLogger.info("pushed the ml_distinctCnt_prglevel_projects_status_spec data to druid")
+
+
+# ml_distinctCnt_prgmlevel_projects_spec = json.loads(config.get("DRUID","ml_distinctCnt_prglevel_projects_status_spec"))
+# ml_distinctCnt_prgmlevel_projects_datasource = ml_distinctCnt_prgmlevel_projects_spec["spec"]["dataSchema"]["dataSource"]
+# if program_unique_id:
+#     current_cloud = re.split("://+", ml_distinctCnt_prgmlevel_projects_spec["spec"]["ioConfig"]["inputSource"]["uris"][0])[0]
+#     uri = re.split("://+", ml_distinctCnt_prgmlevel_projects_spec["spec"]["ioConfig"]["inputSource"]["uris"][0])[1]
+#     edited_uri = re.split(".json", uri)[0]
+#     ml_distinctCnt_prgmlevel_projects_spec["spec"]["ioConfig"]["inputSource"]["uris"][0] = f"{current_cloud}://{edited_uri}_{program_unique_id}.json"
+#     ml_distinctCnt_prgmlevel_projects_spec["spec"]["ioConfig"].update({"appendToExisting":True})
+# distinctCnt_prgmlevel_projects_start_supervisor = requests.post(druid_batch_end_point, data=json.dumps(ml_distinctCnt_prgmlevel_projects_spec), headers=headers)
+# if distinctCnt_prgmlevel_projects_start_supervisor.status_code == 200:
+#     bot.api_call("chat.postMessage",channel=config.get("SLACK","channel"),text=f"Successfully Ingested for {ml_distinctCnt_prgmlevel_projects_datasource}")
+#     successLogger.debug("started the batch ingestion task sucessfully for the datasource " + ml_distinctCnt_prgmlevel_projects_datasource)
+# else:
+#     errorLogger.error(
+#             "failed to start batch ingestion task of ml-project-programLevel-status " + str(distinctCnt_prgmlevel_projects_start_supervisor.status_code)
+#     )
+#     errorLogger.error(distinctCnt_prgmlevel_projects_start_supervisor.text)
 
 
 dimensionsArr = []
@@ -848,19 +880,40 @@ submissionReportColumnNamesArr = [
 
 dimensionsArr.extend(submissionReportColumnNamesArr)
 
+#projects submission for sl-project
 payload = {}
 payload = json.loads(config.get("DRUID","project_injestion_spec"))
 if program_unique_id :
-    current_cloud = re.split("://+", payload["spec"]["ioConfig"]["inputSource"]["uris"][0])[0]
-    uri = re.split("://+", payload["spec"]["ioConfig"]["inputSource"]["uris"][0])[1]
-    edited_uri = re.split(".json", uri)[0]
-    payload["spec"]["ioConfig"]["inputSource"]["uris"][0] = f"{current_cloud}://{edited_uri}_{program_unique_id}.json"
+    # Replace inputSource with local directory instead of S3
+    payload["spec"]["ioConfig"]["inputSource"] = {
+        "type": "local",
+        "baseDir": "/Users/user/Documents/shikshalokam/prod/ml-analytics-service/local_cloud/projects/",
+        "filter": f"sl_projects_{program_unique_id}.json"
+    }
     payload['spec']['ioConfig'].update({"appendToExisting":True})  
 payload["spec"]["dataSchema"]["dimensionsSpec"]["dimensions"] = dimensionsArr
 datasources = [payload["spec"]["dataSchema"]["dataSource"]]
 ingestion_specs = [json.dumps(payload)]
 
+
+# successLogger.info("pushing the ml_distinctCnt_prglevel_projects_status_spec data to druid : " + str(ml_distinctCnt_prgmlevel_projects_spec))
+# successLogger.info("pushed the project_injestion_spec data to druid")
+
+# payload = {}
+# payload = json.loads(config.get("DRUID","project_injestion_spec"))
+# if program_unique_id :
+#     current_cloud = re.split("://+", payload["spec"]["ioConfig"]["inputSource"]["uris"][0])[0]
+#     uri = re.split("://+", payload["spec"]["ioConfig"]["inputSource"]["uris"][0])[1]
+#     edited_uri = re.split(".json", uri)[0]
+#     payload["spec"]["ioConfig"]["inputSource"]["uris"][0] = f"{current_cloud}://{edited_uri}_{program_unique_id}.json"
+#     payload['spec']['ioConfig'].update({"appendToExisting":True})  
+# payload["spec"]["dataSchema"]["dimensionsSpec"]["dimensions"] = dimensionsArr
+# datasources = [payload["spec"]["dataSchema"]["dataSource"]]
+# ingestion_specs = [json.dumps(payload)]
+
 for i, j in zip(datasources,ingestion_specs):
+    successLogger.info("pushing the datasources data to druid : " + str(i))
+    successLogger.info("pushing the project_injestion_spec data to druid : " + str(j))
     start_supervisor = requests.post(druid_batch_end_point, data=j, headers=headers)
     successLogger.debug("--- INGEST DATA ---")
     if start_supervisor.status_code == 200:

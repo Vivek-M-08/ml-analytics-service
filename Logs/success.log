@@ -1,0 +1,154 @@
+2025-09-19 16:30:57,802 - DEBUG
+Ingestion end for raw 2025-09-19 16:30:57.801959
+2025-09-19 16:31:00,016 - DEBUG
+Program started  2025-09-19 16:31:00.016345
+2025-09-19 16:31:02,512 - DEBUG
+Mongo Query start time  2025-09-19 16:31:02.512757
+2025-09-19 16:31:02,556 - DEBUG
+Mongo Query end time  2025-09-19 16:31:02.556581
+2025-09-19 16:31:02,556 - DEBUG
+Function call start time  2025-09-19 16:31:02.556841
+2025-09-19 16:31:02,557 - DEBUG
+Function return end time  2025-09-19 16:31:02.557137
+2025-09-19 16:31:02,557 - DEBUG
+RDD converstion start time  2025-09-19 16:31:02.557178
+2025-09-19 16:31:03,651 - DEBUG
+RDD converstion end time  2025-09-19 16:31:03.651420
+2025-09-19 16:31:03,652 - DEBUG
+RDD to Dataframe conversion start time  2025-09-19 16:31:03.652236
+2025-09-19 16:31:05,211 - DEBUG
+RDD to Dataframe conversion end time  2025-09-19 16:31:05.211753
+2025-09-19 16:31:05,230 - DEBUG
+Flattening data start time  2025-09-19 16:31:05.230314
+2025-09-19 16:31:06,544 - DEBUG
+Organisation logic start time  2025-09-19 16:31:06.544534
+2025-09-19 16:31:06,599 - DEBUG
+Organisation logic end time  2025-09-19 16:31:06.598999
+2025-09-19 16:31:07,607 - DEBUG
+Flattening data end time  2025-09-19 16:31:07.607206
+2025-09-19 16:31:07,614 - DEBUG
+Get Entities start time  2025-09-19 16:31:07.614069
+2025-09-19 16:31:27,475 - DEBUG
+Get Entities end time  2025-09-19 16:31:27.475422
+2025-09-19 16:31:27,477 - DEBUG
+Final Dataframe start time  2025-09-19 16:31:27.477042
+2025-09-19 16:31:27,510 - DEBUG
+Final Dataframe end time  2025-09-19 16:31:27.510556
+2025-09-19 16:31:27,573 - DEBUG
+sl-project Json file generation start time  2025-09-19 16:31:27.573966
+2025-09-19 16:32:18,142 - DEBUG
+sl-project Json file generation end time  2025-09-19 16:32:18.139552
+2025-09-19 16:32:18,150 - DEBUG
+Logic for submission distinct count start time  2025-09-19 16:32:18.150478
+2025-09-19 16:33:19,586 - DEBUG
+Logic for submission distinct count end time  2025-09-19 16:33:19.584801
+2025-09-19 16:33:19,605 - DEBUG
+Logic for submission distinct count by program level start time  2025-09-19 16:33:19.605956
+2025-09-19 16:34:25,228 - DEBUG
+Logic for submission distinct count by program level end time  2025-09-19 16:34:25.226884
+2025-09-19 16:34:25,266 - DEBUG
+Renaming file start time  2025-09-19 16:34:25.265969
+2025-09-19 16:34:25,299 - DEBUG
+Renaming file end time  2025-09-19 16:34:25.298973
+2025-09-19 16:34:25,299 - DEBUG
+Uploading to Azure start time  2025-09-19 16:34:25.299118
+2025-09-19 16:34:25,299 - DEBUG
+Uploading to azure end time  2025-09-19 16:34:25.299424
+2025-09-19 16:34:25,299 - DEBUG
+Removing file start time  2025-09-19 16:34:25.299911
+2025-09-19 16:34:25,299 - DEBUG
+Removing file end time  2025-09-19 16:34:25.299963
+2025-09-19 16:34:25,300 - DEBUG
+Ingestion start time  2025-09-19 16:34:25.300045
+2025-09-19 16:34:25,302 - INFO
+pushing the ml_distinctCnt_projects_status_spec data to druid : {'type': 'index', 'spec': {'ioConfig': {'type': 'index', 'inputSource': {'type': 'local', 'baseDir': '/Users/user/Documents/shikshalokam/prod/ml-analytics-service/local_cloud/projects_distinctCount/', 'filter': 'ml_projects_distinctCount_600ab53cc7de076e6f993724.json'}, 'inputFormat': {'type': 'json'}, 'appendToExisting': True}, 'tuningConfig': {'type': 'index', 'partitionsSpec': {'type': 'dynamic'}}, 'dataSchema': {'dataSource': 'ml-project-status', 'granularitySpec': {'type': 'uniform', 'queryGranularity': 'none', 'rollup': False, 'segmentGranularity': 'DAY'}, 'timestampSpec': {'column': 'time_stamp', 'format': 'auto'}, 'dimensionsSpec': {'dimensions': [{'type': 'string', 'name': 'program_name'}, {'type': 'string', 'name': 'program_id'}, {'type': 'string', 'name': 'project_title'}, {'type': 'string', 'name': 'solution_id'}, {'type': 'string', 'name': 'status_of_project'}, {'type': 'string', 'name': 'state_name'}, {'type': 'string', 'name': 'state_externalId'}, {'type': 'string', 'name': 'district_name'}, {'type': 'string', 'name': 'district_externalId'}, {'type': 'string', 'name': 'organisation_name'}, {'type': 'string', 'name': 'organisation_id'}, {'type': 'string', 'name': 'private_program'}, {'type': 'string', 'name': 'project_created_type'}, {'type': 'string', 'name': 'parent_channel'}, {'type': 'long', 'name': 'unique_projects'}, {'type': 'long', 'name': 'unique_users'}, {'type': 'long', 'name': 'no_of_imp_with_evidence'}, {'type': 'string', 'name': 'time_stamp'}]}, 'metricsSpec': []}}}
+2025-09-19 16:34:27,195 - INFO
+pushed the ml_distinctCnt_projects_status_spec data to druid
+2025-09-19 16:34:27,195 - INFO
+pushing the ml_distinctCnt_prglevel_projects_status_spec data to druid : {'type': 'index', 'spec': {'ioConfig': {'type': 'index', 'inputSource': {'type': 'local', 'baseDir': '/Users/user/Documents/shikshalokam/prod/ml-analytics-service/local_cloud/projects_distinctCount_prgmlevel/', 'filter': 'ml_projects_distinctCount_prgmlevel_600ab53cc7de076e6f993724.json'}, 'inputFormat': {'type': 'json'}, 'appendToExisting': True}, 'tuningConfig': {'type': 'index', 'partitionsSpec': {'type': 'dynamic'}}, 'dataSchema': {'dataSource': 'ml-project-programLevel-status', 'granularitySpec': {'type': 'uniform', 'queryGranularity': 'none', 'rollup': False, 'segmentGranularity': 'DAY'}, 'timestampSpec': {'column': 'time_stamp', 'format': 'auto'}, 'dimensionsSpec': {'dimensions': [{'type': 'string', 'name': 'program_name'}, {'type': 'string', 'name': 'program_id'}, {'type': 'string', 'name': 'status_of_project'}, {'type': 'string', 'name': 'state_name'}, {'type': 'string', 'name': 'state_externalId'}, {'type': 'string', 'name': 'private_program'}, {'type': 'string', 'name': 'project_created_type'}, {'type': 'string', 'name': 'parent_channel'}, {'type': 'long', 'name': 'unique_projects'}, {'type': 'long', 'name': 'unique_users'}, {'type': 'long', 'name': 'no_of_imp_with_evidence'}, {'type': 'string', 'name': 'time_stamp'}]}, 'metricsSpec': []}}}
+2025-09-19 16:34:27,222 - INFO
+pushed the ml_distinctCnt_prglevel_projects_status_spec data to druid
+2025-09-19 16:34:27,222 - INFO
+pushing the datasources data to druid : sl-project
+2025-09-19 16:34:27,222 - INFO
+pushing the project_injestion_spec data to druid : {"type": "index", "spec": {"ioConfig": {"type": "index", "inputSource": {"type": "local", "baseDir": "/Users/user/Documents/shikshalokam/prod/ml-analytics-service/local_cloud/projects/", "filter": "sl_projects_600ab53cc7de076e6f993724.json"}, "inputFormat": {"type": "json"}, "appendToExisting": true}, "tuningConfig": {"type": "index", "partitionsSpec": {"type": "dynamic"}}, "dataSchema": {"dataSource": "sl-project", "granularitySpec": {"type": "uniform", "queryGranularity": "DAY", "rollup": false, "segmentGranularity": "DAY"}, "timestampSpec": {"column": "project_updated_date", "format": "auto"}, "dimensionsSpec": {"dimensions": ["block_externalId", "school_code", "block_code", "board_name", "block_name", "district_externalId", "school_name", "state_name", "state_externalId", "district_name", "state_code", "district_code", "school_externalId", "cluster_code", "cluster_externalId", "cluster_name", "project_title", "project_goal", "project_created_date", "project_last_sync", "area_of_improvement", "status_of_project", "tasks", "tasks_date", "tasks_status", "sub_task", "sub_task_status", "sub_task_date", "task_start_date", "task_end_date", "sub_task_start_date", "sub_task_end_date", "designation", "project_deleted_flag", "task_evidence", "task_evidence_status", "project_id", "task_id", "sub_task_id", "project_created_type", "task_assigned_to", "channel", "parent_channel", "program_id", "program_name", "project_updated_date", "createdBy", "project_title_editable", "project_duration", "program_externalId", "private_program", "task_deleted_flag", "sub_task_deleted_flag", "project_terms_and_condition", "task_remarks", "organisation_name", "project_description", "project_completed_date", "solution_id", "project_remarks", "project_evidence", "organisation_id", "user_type", "certificate_id", "certificate_status", "certificate_issued_on", "certificate_status_customised", "certificate_template_url", {"type": "long", "name": "task_count"}, {"type": "long", "name": "task_evidence_count"}, {"type": "long", "name": "project_evidence_count"}, {"type": "long", "name": "task_sequence"}]}, "metricsSpec": []}}}
+2025-09-19 16:34:27,305 - DEBUG
+--- INGEST DATA ---
+2025-09-19 16:34:27,887 - DEBUG
+started the batch ingestion task sucessfully for the datasource sl-project
+2025-09-19 16:34:33,321 - DEBUG
+Program started  2025-09-19 16:34:33.321261
+2025-09-19 16:34:36,370 - DEBUG
+Mongo Query start time  2025-09-19 16:34:36.370712
+2025-09-19 16:34:36,462 - DEBUG
+Mongo Query end time  2025-09-19 16:34:36.462468
+2025-09-19 16:34:36,462 - DEBUG
+Function call start time  2025-09-19 16:34:36.462752
+2025-09-19 16:34:36,463 - DEBUG
+Function return end time  2025-09-19 16:34:36.463002
+2025-09-19 16:34:36,463 - DEBUG
+RDD converstion start time  2025-09-19 16:34:36.463067
+2025-09-19 16:34:36,663 - DEBUG
+RDD converstion end time  2025-09-19 16:34:36.663475
+2025-09-19 16:34:36,663 - DEBUG
+RDD to Dataframe conversion start time  2025-09-19 16:34:36.663597
+2025-09-19 16:34:38,905 - DEBUG
+RDD to Dataframe conversion end time  2025-09-19 16:34:38.905756
+2025-09-19 16:34:38,929 - DEBUG
+Flattening data start time  2025-09-19 16:34:38.929162
+2025-09-19 16:34:40,739 - DEBUG
+Organisation logic start time  2025-09-19 16:34:40.739638
+2025-09-19 16:34:40,785 - DEBUG
+Organisation logic end time  2025-09-19 16:34:40.784955
+2025-09-19 16:34:42,034 - DEBUG
+Flattening data end time  2025-09-19 16:34:42.034376
+2025-09-19 16:34:42,043 - DEBUG
+Get Entities start time  2025-09-19 16:34:42.043918
+2025-09-19 16:35:00,755 - DEBUG
+Get Entities end time  2025-09-19 16:35:00.755053
+2025-09-19 16:35:00,755 - DEBUG
+Final Dataframe start time  2025-09-19 16:35:00.755747
+2025-09-19 16:35:00,783 - DEBUG
+Final Dataframe end time  2025-09-19 16:35:00.783514
+2025-09-19 16:35:07,361 - DEBUG
+sl-project Json file generation start time  2025-09-19 16:35:07.361395
+2025-09-19 16:36:03,984 - DEBUG
+sl-project Json file generation end time  2025-09-19 16:36:03.976493
+2025-09-19 16:36:04,004 - DEBUG
+Logic for submission distinct count start time  2025-09-19 16:36:04.004286
+2025-09-19 16:37:25,736 - DEBUG
+Logic for submission distinct count end time  2025-09-19 16:37:25.720325
+2025-09-19 16:37:25,840 - DEBUG
+Logic for submission distinct count by program level start time  2025-09-19 16:37:25.840277
+2025-09-19 16:39:52,909 - DEBUG
+Logic for submission distinct count by program level end time  2025-09-19 16:39:52.889159
+2025-09-19 16:39:52,934 - DEBUG
+Renaming file start time  2025-09-19 16:39:52.934786
+2025-09-19 16:39:52,971 - DEBUG
+Renaming file end time  2025-09-19 16:39:52.971096
+2025-09-19 16:39:52,971 - DEBUG
+Uploading to Azure start time  2025-09-19 16:39:52.971346
+2025-09-19 16:39:52,971 - DEBUG
+Uploading to azure end time  2025-09-19 16:39:52.971604
+2025-09-19 16:39:52,971 - DEBUG
+Removing file start time  2025-09-19 16:39:52.971748
+2025-09-19 16:39:52,971 - DEBUG
+Removing file end time  2025-09-19 16:39:52.971833
+2025-09-19 16:39:52,971 - DEBUG
+Ingestion start time  2025-09-19 16:39:52.971925
+2025-09-19 16:39:52,982 - INFO
+pushing the ml_distinctCnt_projects_status_spec data to druid : {'type': 'index', 'spec': {'ioConfig': {'type': 'index', 'inputSource': {'type': 'local', 'baseDir': '/Users/user/Documents/shikshalokam/prod/ml-analytics-service/local_cloud/projects_distinctCount/', 'filter': 'ml_projects_distinctCount_601bc3eafdf0bd513d6d7bb0.json'}, 'inputFormat': {'type': 'json'}, 'appendToExisting': True}, 'tuningConfig': {'type': 'index', 'partitionsSpec': {'type': 'dynamic'}}, 'dataSchema': {'dataSource': 'ml-project-status', 'granularitySpec': {'type': 'uniform', 'queryGranularity': 'none', 'rollup': False, 'segmentGranularity': 'DAY'}, 'timestampSpec': {'column': 'time_stamp', 'format': 'auto'}, 'dimensionsSpec': {'dimensions': [{'type': 'string', 'name': 'program_name'}, {'type': 'string', 'name': 'program_id'}, {'type': 'string', 'name': 'project_title'}, {'type': 'string', 'name': 'solution_id'}, {'type': 'string', 'name': 'status_of_project'}, {'type': 'string', 'name': 'state_name'}, {'type': 'string', 'name': 'state_externalId'}, {'type': 'string', 'name': 'district_name'}, {'type': 'string', 'name': 'district_externalId'}, {'type': 'string', 'name': 'organisation_name'}, {'type': 'string', 'name': 'organisation_id'}, {'type': 'string', 'name': 'private_program'}, {'type': 'string', 'name': 'project_created_type'}, {'type': 'string', 'name': 'parent_channel'}, {'type': 'long', 'name': 'unique_projects'}, {'type': 'long', 'name': 'unique_users'}, {'type': 'long', 'name': 'no_of_imp_with_evidence'}, {'type': 'string', 'name': 'time_stamp'}]}, 'metricsSpec': []}}}
+2025-09-19 16:39:53,660 - INFO
+pushed the ml_distinctCnt_projects_status_spec data to druid
+2025-09-19 16:39:53,676 - INFO
+pushing the ml_distinctCnt_prglevel_projects_status_spec data to druid : {'type': 'index', 'spec': {'ioConfig': {'type': 'index', 'inputSource': {'type': 'local', 'baseDir': '/Users/user/Documents/shikshalokam/prod/ml-analytics-service/local_cloud/projects_distinctCount_prgmlevel/', 'filter': 'ml_projects_distinctCount_prgmlevel_601bc3eafdf0bd513d6d7bb0.json'}, 'inputFormat': {'type': 'json'}, 'appendToExisting': True}, 'tuningConfig': {'type': 'index', 'partitionsSpec': {'type': 'dynamic'}}, 'dataSchema': {'dataSource': 'ml-project-programLevel-status', 'granularitySpec': {'type': 'uniform', 'queryGranularity': 'none', 'rollup': False, 'segmentGranularity': 'DAY'}, 'timestampSpec': {'column': 'time_stamp', 'format': 'auto'}, 'dimensionsSpec': {'dimensions': [{'type': 'string', 'name': 'program_name'}, {'type': 'string', 'name': 'program_id'}, {'type': 'string', 'name': 'status_of_project'}, {'type': 'string', 'name': 'state_name'}, {'type': 'string', 'name': 'state_externalId'}, {'type': 'string', 'name': 'private_program'}, {'type': 'string', 'name': 'project_created_type'}, {'type': 'string', 'name': 'parent_channel'}, {'type': 'long', 'name': 'unique_projects'}, {'type': 'long', 'name': 'unique_users'}, {'type': 'long', 'name': 'no_of_imp_with_evidence'}, {'type': 'string', 'name': 'time_stamp'}]}, 'metricsSpec': []}}}
+2025-09-19 16:39:53,797 - INFO
+pushed the ml_distinctCnt_prglevel_projects_status_spec data to druid
+2025-09-19 16:39:53,798 - INFO
+pushing the datasources data to druid : sl-project
+2025-09-19 16:39:53,799 - INFO
+pushing the project_injestion_spec data to druid : {"type": "index", "spec": {"ioConfig": {"type": "index", "inputSource": {"type": "local", "baseDir": "/Users/user/Documents/shikshalokam/prod/ml-analytics-service/local_cloud/projects/", "filter": "sl_projects_601bc3eafdf0bd513d6d7bb0.json"}, "inputFormat": {"type": "json"}, "appendToExisting": true}, "tuningConfig": {"type": "index", "partitionsSpec": {"type": "dynamic"}}, "dataSchema": {"dataSource": "sl-project", "granularitySpec": {"type": "uniform", "queryGranularity": "DAY", "rollup": false, "segmentGranularity": "DAY"}, "timestampSpec": {"column": "project_updated_date", "format": "auto"}, "dimensionsSpec": {"dimensions": ["block_externalId", "school_code", "block_code", "board_name", "block_name", "district_externalId", "school_name", "state_name", "state_externalId", "district_name", "state_code", "district_code", "school_externalId", "cluster_code", "cluster_externalId", "cluster_name", "project_title", "project_goal", "project_created_date", "project_last_sync", "area_of_improvement", "status_of_project", "tasks", "tasks_date", "tasks_status", "sub_task", "sub_task_status", "sub_task_date", "task_start_date", "task_end_date", "sub_task_start_date", "sub_task_end_date", "designation", "project_deleted_flag", "task_evidence", "task_evidence_status", "project_id", "task_id", "sub_task_id", "project_created_type", "task_assigned_to", "channel", "parent_channel", "program_id", "program_name", "project_updated_date", "createdBy", "project_title_editable", "project_duration", "program_externalId", "private_program", "task_deleted_flag", "sub_task_deleted_flag", "project_terms_and_condition", "task_remarks", "organisation_name", "project_description", "project_completed_date", "solution_id", "project_remarks", "project_evidence", "organisation_id", "user_type", "certificate_id", "certificate_status", "certificate_issued_on", "certificate_status_customised", "certificate_template_url", {"type": "long", "name": "task_count"}, {"type": "long", "name": "task_evidence_count"}, {"type": "long", "name": "project_evidence_count"}, {"type": "long", "name": "task_sequence"}]}, "metricsSpec": []}}}
+2025-09-19 16:39:54,063 - DEBUG
+--- INGEST DATA ---
+2025-09-19 16:39:54,667 - DEBUG
+started the batch ingestion task sucessfully for the datasource sl-project

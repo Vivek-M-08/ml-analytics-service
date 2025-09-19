@@ -64,14 +64,14 @@ if get_timestamp.status_code == 200:
     min2 = str(min1.year) + "-" + minmonth + "-" + str(min1.day)
     max2 = str(max1.year) + "-" + maxmonth  + "-" + str(max1.day)
     interval = min2 + "_" + max2
-    time.sleep(50)
+    # time.sleep(50)
     successLogger.debug(f"sleep 50s")
 
     disable_datasource = requests.delete(druid_end_point, headers=headers)
 
     if disable_datasource.status_code == 200:
         successLogger.debug("successfully disabled the datasource " + datasources)
-        time.sleep(300)
+        # time.sleep(300)
         successLogger.debug(f"sleep 300s")
 
         delete_segments = requests.delete(
@@ -80,13 +80,13 @@ if get_timestamp.status_code == 200:
         if delete_segments.status_code == 200:
             successLogger.debug("successfully deleted the segments " + datasources)
             bot.api_call("chat.postMessage",channel=config.get("SLACK","channel"),text=f"Deletion check successfull for {datasources}")
-            time.sleep(600)
+            # time.sleep(600)
             successLogger.debug(f"sleep 300s")
 
             enable_datasource = requests.get(druid_end_point, headers=headers)
             if enable_datasource.status_code == 200 or enable_datasource.status_code == 204:
                 successLogger.debug("successfully enabled the datasource " + datasources)
-                time.sleep(600)
+                # time.sleep(600)
                 successLogger.debug(f"sleep 600s")
             else:
                 errorLogger.error("failed to enable the datasource " + datasources)

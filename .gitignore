@@ -1,3 +1,5 @@
 .idea
-config.ini
 trust_review_scripts/config.ini
+/myenv/ 
+__pycache__
+.python-version

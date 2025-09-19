@@ -2,7 +2,7 @@
 source /etc/profile
 export PYSPARK_PYTHON=python3
 export TZ=Asia/Kolkata date
-source /opt/sparkjobs/ml-analytics-service/shell_script_config
+source /Users/user/Documents/shikshalokam/prod/ml-analytics-service/shell_script_config.env
 echo "RUNNING JOB"
 
 # PROJECT: Gather Program IDs
@@ -10,7 +10,7 @@ echo ""
 echo "$(date)"
 echo "====================================="
 echo "Gather Program IDs == Started"
-. /opt/sparkjobs/spark_venv/bin/activate && python /opt/sparkjobs/ml-analytics-service/projects/py_gather_program.py
+# . /Users/user/Documents/shikshalokam/prod/ml-analytics-service/myenv/bin/activate && python /Users/user/Documents/shikshalokam/prod/ml-analytics-service/projects/py_gather_program.py
 echo "Gather == Completed"
 echo "*************************************"
 
@@ -19,7 +19,7 @@ echo ""
 echo "$(date)"
 echo "====================================="
 echo "Daily Projects Batch Job Ingestion == Started"
-. /opt/sparkjobs/spark_venv/bin/activate && python /opt/sparkjobs/ml-analytics-service/projects/pyspark_project_deletion_batch.py
+# . /Users/user/Documents/shikshalokam/prod/ml-analytics-service/myenv/bin/activate && python /Users/user/Documents/shikshalokam/prod/ml-analytics-service/projects/pyspark_project_deletion_batch.py
 echo "Daily Projects Batch Job Ingestion == Completed"
 echo "*************************************"
 
@@ -31,37 +31,46 @@ echo "Daily Projects Batch Job Ingestion == Started"
 filename=$projects_program_filename
 n=1
 while read line; do
-	. /opt/sparkjobs/spark_venv/bin/activate && /opt/sparkjobs/spark_venv/lib/python3.8/site-packages/pyspark/bin/spark-submit --driver-memory 50g --executor-memory 50g /opt/sparkjobs/ml-analytics-service/projects/pyspark_project_batch.py --program_id ${line/,}
+	# . /Users/user/Documents/shikshalokam/prod/ml-analytics-service/myenv/bin/activate && /Users/user/Documents/shikshalokam/prod/ml-analytics-service/myenv/lib/python3.6/site-packages/pyspark/bin/spark-submit --driver-memory 50g --executor-memory 50g /Users/user/Documents/shikshalokam/prod/ml-analytics-service/projects/pyspark_project_batch.py --program_id ${line/,}
 n=$((n+1))
 done < $filename
 echo "Daily Projects Batch Job Ingestion == Completed"
 echo "*************************************"
 
-# OBSERVATION : Deletion and Ingestion
-echo ""
-echo "$(date)"
-echo "====================================="
-echo "Daily Observation Status Batch Job Ingestion == Started"
-. /opt/sparkjobs/spark_venv/bin/activate && /opt/sparkjobs/spark_venv/lib/python3.8/site-packages/pyspark/bin/spark-submit --driver-memory 50g --executor-memory 50g /opt/sparkjobs/ml-analytics-service/observations/pyspark_observation_status_batch.py
-echo "Daily Observation Status Batch Job Ingestion == Completed"
-echo "*************************************"
+# # OBSERVATION : Deletion and Ingestion
+# echo ""
+# echo "$(date)"
+# echo "====================================="
+# echo "Daily Observation Status Batch Job Ingestion == Started"
+# . /opt/sparkjobs/spark_venv/bin/activate && /opt/sparkjobs/spark_venv/lib/python3.8/site-packages/pyspark/bin/spark-submit --driver-memory 50g --executor-memory 50g /opt/sparkjobs/ml-analytics-service/observations/pyspark_observation_status_batch.py
+# echo "Daily Observation Status Batch Job Ingestion == Completed"
+# echo "*************************************"
 
-# SURVEY : Deletion and Ingestion
-echo ""
-echo "$(date)"
-echo "====================================="
-echo "Daily Survey Status Batch Job Ingestion == Started"
-. /opt/sparkjobs/spark_venv/bin/activate && /opt/sparkjobs/spark_venv/lib/python3.8/site-packages/pyspark/bin/spark-submit --driver-memory 50g --executor-memory 50g /opt/sparkjobs/ml-analytics-service/survey/pyspark_survey_status.py
-echo "Daily Survey Status Batch Job Ingestion == Completed"
-echo "*************************************"
+# # SURVEY : Deletion and Ingestion
+# echo ""
+# echo "$(date)"
+# echo "====================================="
+# echo "Daily Survey Status Batch Job Ingestion == Started"
+# . /opt/sparkjobs/spark_venv/bin/activate && /opt/sparkjobs/spark_venv/lib/python3.8/site-packages/pyspark/bin/spark-submit --driver-memory 50g --executor-memory 50g /opt/sparkjobs/ml-analytics-service/survey/pyspark_survey_status.py
+# echo "Daily Survey Status Batch Job Ingestion == Completed"
+# echo "*************************************"
 
-# SURVEY DISTINCT COUNT STATUS: Deletion and Ingestion
+# # SURVEY DISTINCT COUNT STATUS: Deletion and Ingestion
+# echo ""
+# echo "$(date)"
+# echo "====================================="
+# echo "Daily Survey Distinct Count Status Batch Job Ingestion == Started"
+# . /opt/sparkjobs/spark_venv/bin/activate && /opt/sparkjobs/spark_venv/lib/python3.8/site-packages/pyspark/bin/spark-submit --driver-memory 50g --executor-memory 50g /opt/sparkjobs/ml-analytics-service/survey/pyspark_sur_distinct_count_status.py
+# echo "Daily Survey Distinct Count Status Batch Job Ingestion == Completed"
+# echo "*************************************"
+
+# PROJECT: Re-check ingested the Program IDs
 echo ""
 echo "$(date)"
 echo "====================================="
-echo "Daily Survey Distinct Count Status Batch Job Ingestion == Started"
-. /opt/sparkjobs/spark_venv/bin/activate && /opt/sparkjobs/spark_venv/lib/python3.8/site-packages/pyspark/bin/spark-submit --driver-memory 50g --executor-memory 50g /opt/sparkjobs/ml-analytics-service/survey/pyspark_sur_distinct_count_status.py
-echo "Daily Survey Distinct Count Status Batch Job Ingestion == Completed"
+echo "Re-check ingested the Program IDs == Started"
+. /Users/user/Documents/shikshalokam/prod/ml-analytics-service/myenv/bin/activate && python /Users/user/Documents/shikshalokam/prod/ml-analytics-service/projects/pyspark_project_re_check_ingestion.py
+echo "Re-check == Completed"
 echo "*************************************"
 
 echo "COMPLETED"
